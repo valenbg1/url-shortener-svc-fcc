@@ -20,7 +20,7 @@ app.get("/new/*",
         
         new db.ShortenedURLdoc({
             original_url: orig_url.protocol + "//" + orig_url.host + "/",
-        }).save(
+        }).upsert(
             function(err, shortenedURLdoc) {
                 if (err) {
                     console.error(err);
@@ -35,7 +35,6 @@ app.get("/new/*",
             });
     });
 
-  
 var port = process.env.PORT || 8080;
 app.listen(port,
     function() {
