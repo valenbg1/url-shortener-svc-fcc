@@ -3,6 +3,7 @@ var autoIncrement = require("mongoose-auto-increment");
 var mongodb_url = "mongodb://localhost/url-shortener";
 
 var connection = mongoose.createConnection(mongodb_url);
+exports.connection = connection;
 autoIncrement.initialize(connection);
 
 connection.on("error",
@@ -24,21 +25,19 @@ connection.once("open",
             versionKey: false
         });
         shortenedURLschema.plugin(autoIncrement.plugin, "ShortenedURLs");
-        shortenedURLschema.methods.upsert = upsert;
+        shortenedURLschema.methods.findOrInsert = findOrInsert;
 
         exports.ShortenedURLdoc = connection.model("ShortenedURLs", shortenedURLschema);
     });
     
-function upsert(callback) {
+function findOrInsert(callback) {
     var shortenedURLdoc = this;
     var ShortenedURLdoc = exports.ShortenedURLdoc;
     
     ShortenedURLdoc.findOne({original_url: shortenedURLdoc.original_url},
         function(err, doc) {
-            if (err)
-                callback(err, null);
-            else if (doc)
-                callback(null, doc);
+            if (err || doc)
+                callback(err, doc);
             else
                 shortenedURLdoc.save(callback);
         });
