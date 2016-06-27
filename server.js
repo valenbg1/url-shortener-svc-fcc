@@ -64,6 +64,8 @@ app.get("/new/*",
             });
     });
 
+app.use("/", express.static("public"));
+
 app.get("/*",
     function(req, res) {
         var short_url = req.params[0];
