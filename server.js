@@ -2,10 +2,7 @@ var express = require("express");
 var app = express();
 var url = require("url");
 var db = require("./db.js");
-var hostname_url = "\x68\x74\x74\x70\x3A\x2F\x2F\x75\x72\x6C\x2D\x73\x68\x6F" +
-                    "\x72\x74\x65\x6E\x65\x72\x2D\x73\x76\x63\x2D\x66\x63\x63" +
-                    "\x2D\x76\x61\x6C\x65\x6E\x62\x67\x31\x2E\x63\x39\x75\x73" +
-                    "\x65\x72\x73\x2E\x69\x6F";
+var hostname_url = process.env.HOSTNAME_URI;
 
 function endJSON(json, res) {
     res.writeHead(200, {"Content-Type": "application/json"});

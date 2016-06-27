@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var autoIncrement = require("mongoose-auto-increment");
-var mongodb_url = "mongodb://localhost/url-shortener";
+var mongodb_url = process.env.MONGOLAB_URI;
 
 var connection = mongoose.createConnection(mongodb_url);
 exports.connection = connection;
