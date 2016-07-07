@@ -13,7 +13,7 @@ connection.on("error",
 
 connection.once("open",
     function() {
-        console.log("Connected to MongoDB on '" + mongodb_url + "'");
+        //console.log("Connected to MongoDB on '" + mongodb_url + "'");
             
         var shortenedURLschema = mongoose.Schema({
             original_url: {
